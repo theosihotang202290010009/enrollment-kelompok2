@@ -15,7 +15,7 @@ public class Enroll {
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "student_id")
     private Student studentId;
-    @OneToMany(mappedBy = "enrollId")
+    @OneToMany(mappedBy = "enrollId", cascade = {CascadeType.PERSIST})
     private List<EnrollDetail> enrollDetails;
 
     public Enroll(Integer id, Student studentId) {

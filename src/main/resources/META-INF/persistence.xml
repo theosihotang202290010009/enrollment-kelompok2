@@ -6,8 +6,6 @@
     <persistence-unit name="mahasiswa_jpa" >
 
         <!--        <mapping-file>META-INF/customer_mapping.xml</mapping-file>-->
-       <class>com.enigma.enrollment_java.entity.Student</class>
-       <class>com.enigma.enrollment_java.entity.Period</class>
         <class>com.enigma.enrollment_java.entity.Course</class>
         <class>com.enigma.enrollment_java.entity.EnrollDetail</class>
         <class>com.enigma.enrollment_java.entity.Enroll</class>

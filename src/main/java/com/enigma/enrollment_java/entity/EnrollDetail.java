@@ -7,14 +7,16 @@ import jakarta.persistence.*;
 public class EnrollDetail {
     @Id
     @GeneratedValue(generator = "enroll_detail_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "enroll_detail_seq", sequenceName = "enroll_detail_id_seq", initialValue = 1)
+    @SequenceGenerator(name = "enroll_detail_seq", sequenceName = "enroll_detail_id_seq", allocationSize = 1)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "enroll_id")
     private Enroll enrollId;
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course courseId;
     @ManyToOne
+    @JoinColumn(name = "period_id")
     private Period periodId;
 
     public EnrollDetail(Integer id, Enroll enrollId, Course courseId, Period periodId) {
