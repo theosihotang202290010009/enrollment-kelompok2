@@ -2,6 +2,8 @@ package com.enigma.enrollment_java.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "enroll")
 public class Enroll {
@@ -13,6 +15,8 @@ public class Enroll {
     @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "student_id")
     private Student studentId;
+    @OneToMany(mappedBy = "enrollId", cascade = {CascadeType.PERSIST})
+    private List<EnrollDetail> enrollDetails;
 
     public Enroll(Integer id, Student studentId) {
         this.id = id;
@@ -21,6 +25,15 @@ public class Enroll {
 
     public Enroll() {
 
+    }
+
+    public Enroll(Student studentId) {
+        this.studentId = studentId;
+    }
+
+    public Enroll(Student studentId, List<EnrollDetail> enrollDetails) {
+        this.studentId = studentId;
+        this.enrollDetails = enrollDetails;
     }
 
     public Integer getId() {
@@ -37,5 +50,13 @@ public class Enroll {
 
     public void setStudentId(Student studentId) {
         this.studentId = studentId;
+    }
+
+    public List<EnrollDetail> getEnrollDetails() {
+        return enrollDetails;
+    }
+
+    public void setEnrollDetails(List<EnrollDetail> enrollDetails) {
+        this.enrollDetails = enrollDetails;
     }
 }
