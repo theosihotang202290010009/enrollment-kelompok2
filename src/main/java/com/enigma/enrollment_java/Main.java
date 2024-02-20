@@ -2,8 +2,10 @@ package com.enigma.enrollment_java;
 
 import com.enigma.enrollment_java.dto.request.EnrollDetailRequest;
 import com.enigma.enrollment_java.dto.request.EnrollRequest;
+import com.enigma.enrollment_java.dto.response.EnrollDetailResponse;
 import com.enigma.enrollment_java.entity.Course;
 import com.enigma.enrollment_java.entity.Enroll;
+import com.enigma.enrollment_java.entity.EnrollDetail;
 import com.enigma.enrollment_java.entity.Period;
 import com.enigma.enrollment_java.repository.CourseRepository;
 import com.enigma.enrollment_java.repository.EnrollRepository;
@@ -22,37 +24,51 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         EntityManager entityManager = JpaUtil.getEntityManager();
+//        EnrollDetail(entityManager);
+        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
+        List<EnrollDetailResponse> all = enrollRepository.getAll();
+        System.out.println("-".repeat(70));
+        System.out.printf("%-10s %-10s %-20s %-20s\n", "ID", "Enroll ID", "Course", "Period");
+        System.out.println("-".repeat(70));
+        for (EnrollDetailResponse enrolldetail : all) {
+            System.out.printf("%-10s %-10s %-20s %-20s\n", enrolldetail.getEnrollDetail(), enrolldetail.getEnrollId(), enrolldetail.getCourseName(), enrolldetail.getPeriodName());
+            }
+        System.out.println("-".repeat(70));
+
+        entityManager.close();
+        JpaUtil.shutdown();
+    }
+
+    private static void EnrollDetail(EntityManager entityManager) {
         EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
         Course course = entityManager.find(Course.class, 1);
-        Period period =entityManager.find(Period.class, 1);
+        Period period = entityManager.find(Period.class, 1);
 
         Course course1 = entityManager.find(Course.class, 3);
-        Period period1 =entityManager.find(Period.class, 1);
+        Period period1 = entityManager.find(Period.class, 1);
 
         Course course2 = entityManager.find(Course.class, 3);
-        Period period2 =entityManager.find(Period.class, 3);
+        Period period2 = entityManager.find(Period.class, 3);
 
         Course course3 = entityManager.find(Course.class, 2);
-        Period period3 =entityManager.find(Period.class, 2);
+        Period period3 = entityManager.find(Period.class, 2);
 
         Course course4 = entityManager.find(Course.class, 4);
-        Period period4 =entityManager.find(Period.class, 2);
+        Period period4 = entityManager.find(Period.class, 2);
 
 
-        EnrollRequest enrollRequest =new EnrollRequest("Ucogg","Sastra Mesin");
+        EnrollRequest enrollRequest =new EnrollRequest("darui","Matematika");
         enrollRequest.setEnrollDetailRequests(
                 List.of(
-                        new EnrollDetailRequest(1,1),
-                        new EnrollDetailRequest(3,1),
-                        new EnrollDetailRequest(3,3),
-                        new EnrollDetailRequest(2,2),
-                        new EnrollDetailRequest(4,2)
+                        new EnrollDetailRequest(course,period),
+                        new EnrollDetailRequest(course1,period1),
+                        new EnrollDetailRequest(course2,period2),
+                        new EnrollDetailRequest(course3,period3),
+                        new EnrollDetailRequest(course4,period4)
                 )
         );
 
         enrollRepository.save(enrollRequest);
-        entityManager.close();
-        JpaUtil.shutdown();
     }
 
     private static void addStudent(EntityManager entityManager) {

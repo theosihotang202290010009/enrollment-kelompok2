@@ -71,4 +71,14 @@ public class EnrollDetail {
     public void setPeriodId(Period periodId) {
         this.periodId = periodId;
     }
+
+//    @Override
+//    public String toString() {
+//        return "EnrollDetail{" +
+//                "id=" + id +
+//                ", enrollId=" + enrollId +
+//                ", courseId=" + courseId +
+//                ", periodId=" + periodId +
+//                '}';
+//    }
 }
