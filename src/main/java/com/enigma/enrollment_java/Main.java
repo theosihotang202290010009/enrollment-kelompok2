@@ -14,6 +14,18 @@ import jakarta.persistence.EntityTransaction;
 public class Main {
     public static void main(String[] args) {
         EntityManager entityManager = JpaUtil.getEntityManager();
+        StudentRepository studentRepository = new StudentRepositoryImpl(entityManager);
+        PeriodRepository periodRepository = new PeriodRepositoryImpl(entityManager);
+
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        Period period = new Period("2021-Ganjil");
+        periodRepository.save(period);
+//        Student student = new Student("Ilham Fitri", "Teknnik komputer jaringan");
+//        studentRepository.save(student);
+        entityManager.close();
+        JpaUtil.shutdown();
+    }
         EntityTransaction transaction = entityManager.getTransaction();
 
         addEnroll(entityManager);
