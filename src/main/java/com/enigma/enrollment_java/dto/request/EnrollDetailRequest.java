@@ -1,46 +1,48 @@
 package com.enigma.enrollment_java.dto.request;
 
+import com.enigma.enrollment_java.entity.Course;
+import com.enigma.enrollment_java.entity.Enroll;
+import com.enigma.enrollment_java.entity.Period;
 public class EnrollDetailRequest {
-    private Integer enrollId;
+    private Enroll enrollId;
+    private Course courseId;
+    private Period period;
 
-    public EnrollDetailRequest(Integer courseId, Integer period) {
-        this.courseId = courseId;
-        this.period = period;
-    }
-
-    private Integer courseId;
-    private Integer period;
-
-    public EnrollDetailRequest(Integer enrollId, Integer courseId, Integer period) {
+    public EnrollDetailRequest(Enroll enrollId, Course courseId, Period period) {
         this.enrollId = enrollId;
         this.courseId = courseId;
         this.period = period;
     }
 
-    public Integer getEnrollId() {
-        return enrollId;
+    public EnrollDetailRequest(Course courseId, Period period) {
+        this.courseId = courseId;
+        this.period = period;
     }
 
     public EnrollDetailRequest() {
     }
 
-    public void setEnrollId(Integer enrollId) {
+    public Enroll getEnrollId() {
+        return enrollId;
+    }
+
+    public void setEnrollId(Enroll enrollId) {
         this.enrollId = enrollId;
     }
 
-    public Integer getCourseId() {
+    public Course getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Integer courseId) {
+    public void setCourseId(Course courseId) {
         this.courseId = courseId;
     }
 
-    public Integer getPeriod() {
+    public Period getPeriod() {
         return period;
     }
 
-    public void setPeriod(Integer period) {
+    public void setPeriod(Period period) {
         this.period = period;
     }
 }

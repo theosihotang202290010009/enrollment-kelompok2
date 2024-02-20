@@ -2,6 +2,7 @@ package com.enigma.enrollment_java;
 
 import com.enigma.enrollment_java.dto.request.EnrollDetailRequest;
 import com.enigma.enrollment_java.dto.request.EnrollRequest;
+import com.enigma.enrollment_java.dto.response.EnrollDetailResponse;
 import com.enigma.enrollment_java.entity.Course;
 import com.enigma.enrollment_java.entity.Period;
 import com.enigma.enrollment_java.repository.EnrollRepository;
@@ -20,6 +21,16 @@ public class Main {
     public static void main(String[] args) {
         EntityManager entityManager = JpaUtil.getEntityManager();
         // addEnrollDetail(entityManager);
+//        EnrollDetail(entityManager);
+        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
+        List<EnrollDetailResponse> all = enrollRepository.getAll();
+        System.out.println("-".repeat(70));
+        System.out.printf("%-10s %-10s %-20s %-20s\n", "ID", "Enroll ID", "Course", "Period");
+        System.out.println("-".repeat(70));
+        for (EnrollDetailResponse enrolldetail : all) {
+            System.out.printf("%-10s %-10s %-20s %-20s\n", enrolldetail.getEnrollDetail(), enrolldetail.getEnrollId(), enrolldetail.getCourseName(), enrolldetail.getPeriodName());
+        }
+        System.out.println("-".repeat(70));
 
         entityManager.close();
         JpaUtil.shutdown();
@@ -42,18 +53,16 @@ public class Main {
         Course course4 = entityManager.find(Course.class, 4);
         Period period4 = entityManager.find(Period.class, 2);
 
-
         EnrollRequest enrollRequest = new EnrollRequest("Ucogg", "Sastra Mesin");
         enrollRequest.setEnrollDetailRequests(
                 List.of(
-                        new EnrollDetailRequest(1, 1),
-                        new EnrollDetailRequest(3, 1),
-                        new EnrollDetailRequest(3, 3),
-                        new EnrollDetailRequest(2, 2),
-                        new EnrollDetailRequest(4, 2)
+                        new EnrollDetailRequest(course, period),
+                        new EnrollDetailRequest(course1, period1),
+                        new EnrollDetailRequest(course2, period2),
+                        new EnrollDetailRequest(course3, period3),
+                        new EnrollDetailRequest(course4, period4)
                 )
         );
-
         enrollRepository.save(enrollRequest);
     }
 
