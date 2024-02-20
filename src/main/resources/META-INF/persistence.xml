@@ -3,11 +3,16 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="mahasiswa_jpa">
+    <persistence-unit name="mahasiswa_jpa" >
 
         <!--        <mapping-file>META-INF/customer_mapping.xml</mapping-file>-->
        <class>com.enigma.enrollment_java.entity.Student</class>
        <class>com.enigma.enrollment_java.entity.Period</class>
+        <class>com.enigma.enrollment_java.entity.Course</class>
+        <class>com.enigma.enrollment_java.entity.EnrollDetail</class>
+        <class>com.enigma.enrollment_java.entity.Enroll</class>
+        <class>com.enigma.enrollment_java.entity.Period</class>
+        <class>com.enigma.enrollment_java.entity.Student</class>
         <properties>
             <!-- Database connection settings -->
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/enrollment_db" />
@@ -15,7 +20,7 @@
             <property name="jakarta.persistence.jdbc.password" value="1" />
 
             <!-- Automatically export the schema -->
-
+            <!--            <property name="jakarta.persistence.schema-generation.database.action" value="create" />-->
             <!-- Echo all executed SQL to console -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
