@@ -39,4 +39,12 @@ public class Period {
     public void setPeriodName(String periodName) {
         this.periodName = periodName;
     }
+
+    @Override
+    public String toString() {
+        return "Period{" +
+                "id=" + id +
+                ", periodName='" + periodName + '\'' +
+                '}';
+    }
 }

@@ -66,6 +66,7 @@ public class Enroll {
                 "id=" + id +
                 ", studentId=" + studentId +
                 ", enrollDetails=" + enrollDetails.toString() +
+                ", enrollDetails=" + enrollDetails +
                 '}';
     }
 }
