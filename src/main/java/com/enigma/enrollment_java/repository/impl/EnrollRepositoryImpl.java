@@ -2,9 +2,7 @@ package com.enigma.enrollment_java.repository.impl;
 
 import com.enigma.enrollment_java.dto.request.EnrollDetailRequest;
 import com.enigma.enrollment_java.dto.request.EnrollRequest;
-import com.enigma.enrollment_java.entity.Enroll;
-import com.enigma.enrollment_java.entity.EnrollDetail;
-import com.enigma.enrollment_java.entity.Student;
+import com.enigma.enrollment_java.entity.*;
 import com.enigma.enrollment_java.repository.EnrollRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -30,9 +28,10 @@ public class EnrollRepositoryImpl implements EnrollRepository {
 
         for (EnrollDetailRequest enrollDetailRequest : enrollRequest.getEnrollDetailRequests()) {
             EnrollDetail enrollDetail = new EnrollDetail();
-            enrollDetail.setEnrollId(enrollDetailRequest.getEnrollId());
-            enrollDetail.setCourseId(enrollDetailRequest.getCourseId());
-            enrollDetail.setPeriodId(enrollDetailRequest.getPeriod());
+            enrollDetail.setEnrollId(enroll);
+            enrollDetail.setCourseId(entityManager.find(Course.class, enrollDetailRequest.getCourseId()));
+            enrollDetail.setPeriodId(entityManager.find(Period.class, enrollDetailRequest.getCourseId()));
+
             enrollDetails.add(enrollDetail);
         }
         enroll.setEnrollDetails(enrollDetails);
