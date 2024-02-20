@@ -6,6 +6,7 @@ import com.enigma.enrollment_java.entity.*;
 import com.enigma.enrollment_java.repository.EnrollRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,12 @@ public class EnrollRepositoryImpl implements EnrollRepository {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    @Override
+    public List getAll() {
+        String hql = "FROM Enroll";
+        Query query = entityManager.createQuery(hql);
+        return query.getResultList();
     }
 }

@@ -59,4 +59,13 @@ public class Enroll {
     public void setEnrollDetails(List<EnrollDetail> enrollDetails) {
         this.enrollDetails = enrollDetails;
     }
+
+    @Override
+    public String toString() {
+        return "Enroll{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", enrollDetails=" + enrollDetails.toString() +
+                '}';
+    }
 }
