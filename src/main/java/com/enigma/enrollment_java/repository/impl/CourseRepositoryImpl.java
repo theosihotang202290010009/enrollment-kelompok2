@@ -21,10 +21,12 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void update(Course course) {
+    public void update(Integer id, String newName) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.merge(course);
+        Course course = entityManager.find(Course.class, id);
+        Course newCourse = new Course(id, newName, course.getCredit());
+        entityManager.merge(newCourse);
         transaction.commit();
     }
 
