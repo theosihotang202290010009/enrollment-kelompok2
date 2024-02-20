@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface EnrollRepository {
     void save(EnrollRequest enrollRequest);
-    EnrollDetail update();
+    void update(EnrollDetail enrollDetail);
     List<EnrollDetailResponse> getAll();
+    void delete(EnrollDetail enrollDetail);
 }
