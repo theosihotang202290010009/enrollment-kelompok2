@@ -22,18 +22,23 @@ public class Main {
         EntityManager entityManager = JpaUtil.getEntityManager();
         // addEnrollDetail(entityManager);
 //        EnrollDetail(entityManager);
-        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
-        List<EnrollDetailResponse> all = enrollRepository.getAll();
-        System.out.println("-".repeat(70));
-        System.out.printf("%-10s %-10s %-20s %-20s\n", "ID", "Enroll ID", "Course", "Period");
-        System.out.println("-".repeat(70));
-        for (EnrollDetailResponse enrolldetail : all) {
-            System.out.printf("%-10s %-10s %-20s %-20s\n", enrolldetail.getEnrollDetail(), enrolldetail.getEnrollId(), enrolldetail.getCourseName(), enrolldetail.getPeriodName());
-        }
-        System.out.println("-".repeat(70));
+        getAllEnroll(entityManager);
+
 
         entityManager.close();
         JpaUtil.shutdown();
+    }
+
+    private static void getAllEnroll(EntityManager entityManager) {
+        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
+        List<EnrollDetailResponse> all = enrollRepository.getAll();
+        System.out.println("-".repeat(100));
+        System.out.printf("%-5s %-10s %-15s %-20s %-20s %-20s\n", "ID", "Enroll ID", "Name", "Major", "Course", "Period");
+        System.out.println("-".repeat(100));
+        for (EnrollDetailResponse enrolldetail : all) {
+            System.out.printf("%-5s %-10s %-15s %-20s %-20s %-20s\n", enrolldetail.getEnrollDetail(), enrolldetail.getEnrollId(), enrolldetail.getName(), enrolldetail.getMajor(), enrolldetail.getCourseName(), enrolldetail.getPeriodName());
+        }
+        System.out.println("-".repeat(100));
     }
 
     private static void addEnrollDetail(EntityManager entityManager) {

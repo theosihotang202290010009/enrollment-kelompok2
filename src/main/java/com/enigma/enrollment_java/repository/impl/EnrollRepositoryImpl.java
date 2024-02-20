@@ -71,4 +71,9 @@ public class EnrollRepositoryImpl implements EnrollRepository {
         }
         return enrollDetailResponses;
     }
+
+    @Override
+    public void delete(EnrollDetail enrollDetail) {
+
+    }
 }
