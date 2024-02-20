@@ -44,9 +44,13 @@ public class EnrollRepositoryImpl implements EnrollRepository {
         transaction.commit();
         entityManager.close();
     }
+
     @Override
-    public EnrollDetail update() {
-        return null;
+    public void update(EnrollDetail EnrolDetail) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.merge(EnrolDetail);
+        transaction.commit();
     }
 
     @Override
@@ -74,6 +78,9 @@ public class EnrollRepositoryImpl implements EnrollRepository {
 
     @Override
     public void delete(EnrollDetail enrollDetail) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.remove(enrollDetail);
+        transaction.commit();
     }
 }

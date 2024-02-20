@@ -4,6 +4,8 @@ import com.enigma.enrollment_java.dto.request.EnrollDetailRequest;
 import com.enigma.enrollment_java.dto.request.EnrollRequest;
 import com.enigma.enrollment_java.dto.response.EnrollDetailResponse;
 import com.enigma.enrollment_java.entity.Course;
+import com.enigma.enrollment_java.entity.Enroll;
+import com.enigma.enrollment_java.entity.EnrollDetail;
 import com.enigma.enrollment_java.entity.Period;
 import com.enigma.enrollment_java.repository.EnrollRepository;
 import com.enigma.enrollment_java.repository.PeriodRepository;
@@ -23,10 +25,29 @@ public class Main {
         // addEnrollDetail(entityManager);
 //        EnrollDetail(entityManager);
         getAllEnroll(entityManager);
-
+//         UpdateEnroll(entityManager);
+        // delete(entityManager);
 
         entityManager.close();
         JpaUtil.shutdown();
+    }
+
+    private static void UpdateEnroll(EntityManager entityManager) {
+        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
+        EnrollDetail enrollDetail = entityManager.find(EnrollDetail.class, 25);
+        Course course = entityManager.find(Course.class, 5);
+        enrollDetail.setCourseId(course);
+
+        enrollRepository.update(enrollDetail);
+    }
+
+    private static void delete(EntityManager entityManager) {
+        EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
+
+        EnrollDetail enrollDetail = entityManager.find(EnrollDetail.class, 34);
+        enrollRepository.delete(enrollDetail);
+
+        Enroll enroll = entityManager.find(Enroll.class, 12);
     }
 
     private static void getAllEnroll(EntityManager entityManager) {
@@ -42,6 +63,23 @@ public class Main {
     }
 
     private static void addEnrollDetail(EntityManager entityManager) {
+        EnrollDetail enrollDetail = entityManager.find(EnrollDetail.class, 35);
+        Course course = entityManager.find(Course.class, 5);
+        enrollDetail.setCourseId(course);
+    }
+
+    private static void getAll(EnrollRepository enrollRepository) {
+        List<EnrollDetailResponse> all = enrollRepository.getAll();
+        System.out.println("-".repeat(70));
+        System.out.printf("%-10s %-10s %-25s %-20s %-20s\n", "ID", "Enroll ID", "Student name", "Course", "Period");
+        System.out.println("-".repeat(70));
+        for (EnrollDetailResponse enrolldetail : all) {
+            System.out.printf("%-10s %-10s %-25s %-20s %-20s\n", enrolldetail.getEnrollDetail(), enrolldetail.getEnrollId(), enrolldetail.getName(), enrolldetail.getCourseName(), enrolldetail.getPeriodName());
+        }
+        System.out.println("-".repeat(70));
+    }
+
+    private static void EnrollDetail(EntityManager entityManager) {
         EnrollRepository enrollRepository = new EnrollRepositoryImpl(entityManager);
         Course course = entityManager.find(Course.class, 1);
         Period period = entityManager.find(Period.class, 1);
